@@ -1,10 +1,6 @@
-<div align="center">
-
-# 🚗 HopIn
+# HopIn
 
 ### A Scalable MERN-Based Carpooling Platform for Smart Urban Mobility
-
-*Share the ride. Save fuel. Build community.*
 
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-success?style=flat-square)](https://www.mongodb.com/mern-stack)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
@@ -14,96 +10,93 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Socket.IO](https://img.shields.io/badge/Socket.IO-real--time-010101?style=flat-square&logo=socket.io&logoColor=white)](https://socket.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](#contributing)
-
-</div>
 
 ---
 
-## 📖 About
+## Overview
 
-**HopIn** is a full-stack carpooling web application built to address modern urban transportation challenges — traffic congestion, single-occupancy vehicle inefficiency, and environmental pollution. By connecting drivers and riders along similar routes, HopIn promotes shared mobility, reduces commute costs, and lowers carbon emissions.
+HopIn is a full-stack carpooling web application designed to address urban transportation challenges including traffic congestion, single-occupancy vehicle inefficiency, and environmental pollution. By connecting drivers and riders along similar routes, the platform promotes shared mobility, reduces commute costs, and lowers carbon emissions.
 
-Built as a major project for the **B.E. in Computer Science and Engineering** at *University College of Engineering, Osmania University*.
+Developed as a major project for the Bachelor of Engineering in Computer Science and Engineering at University College of Engineering, Osmania University.
 
-## ✨ Features
+## Features
 
-- 🔐 **Secure Authentication** — JWT-based login with bcrypt password hashing
-- 🗺️ **Smart Ride Matching** — Polyline-based proximity matching using Google Maps Directions API
-- 📍 **Place Autocomplete** — Google Places integration for accurate origin/destination input
-- 🎟️ **Ride Booking Flow** — Request → driver accept/reject → atomic seat updates
-- 👤 **Role-Based Dashboards** — Separate views for riders and drivers
-- 💬 **Real-Time Communication** — Socket.IO for chat and live ride status
-- 📱 **Responsive UI** — Mobile-first design with Tailwind CSS
-- 🌱 **Eco-Friendly Mission** — Reduces vehicle count and CO₂ emissions per commute
+- **Secure Authentication** — JWT-based login with bcrypt password hashing
+- **Smart Ride Matching** — Polyline-based proximity matching using the Google Maps Directions API
+- **Place Autocomplete** — Google Places integration for accurate origin and destination input
+- **Ride Booking Workflow** — Request, driver approval, and atomic seat updates
+- **Role-Based Dashboards** — Separate interfaces for riders and drivers
+- **Real-Time Communication** — Socket.IO for chat and live ride status updates
+- **Responsive Interface** — Mobile-first design built with Tailwind CSS
+- **Sustainability Focus** — Reduces vehicle count and per-commute carbon emissions
 
-## 🛠️ Tech Stack
+## Technology Stack
 
 | Layer | Technology |
 |-------|-----------|
-| **Frontend** | React 18, Vite, Tailwind CSS, React Router, Axios |
-| **Backend** | Node.js, Express.js |
-| **Database** | MongoDB with Mongoose ODM |
-| **Authentication** | JSON Web Tokens (JWT), bcrypt |
-| **Real-time** | Socket.IO |
-| **Maps & Geo** | Google Maps Platform (Places, Directions, Geocoding) |
-| **Deployment** | Vercel (frontend), Render (backend), MongoDB Atlas (database) |
+| Frontend | React 18, Vite, Tailwind CSS, React Router, Axios |
+| Backend | Node.js, Express.js |
+| Database | MongoDB with Mongoose ODM |
+| Authentication | JSON Web Tokens (JWT), bcrypt |
+| Real-time | Socket.IO |
+| Maps and Geolocation | Google Maps Platform (Places, Directions, Geocoding) |
+| Deployment | Vercel (frontend), Render (backend), MongoDB Atlas (database) |
 
-## 🏗️ Architecture
+## Architecture
 
 ```
-┌──────────────┐       HTTP/REST        ┌──────────────┐
-│              │ ───────────────────►   │              │
-│   React UI   │                        │  Express API │
-│  (Frontend)  │ ◄─────────────────── │  (Node.js)   │
-│              │        JSON            │              │
-└──────┬───────┘                        └──────┬───────┘
-       │                                       │
-       │ WebSocket                             │ Mongoose ODM
-       │                                       │
-       └──────► Socket.IO ◄────────┐          ▼
-                                    │   ┌──────────────┐
-                                    └───│   MongoDB    │
-                                        │   (Atlas)    │
-                                        └──────────────┘
-                  ▲
-                  │ Geocoding / Directions / Places
-                  │
-            ┌─────┴──────┐
-            │ Google Maps│
-            │  Platform  │
-            └────────────┘
++--------------+       HTTP / REST       +--------------+
+|              | ----------------------> |              |
+|   React UI   |                         |  Express API |
+|  (Frontend)  | <---------------------- |  (Node.js)   |
+|              |         JSON            |              |
++------+-------+                         +------+-------+
+       |                                        |
+       | WebSocket                              | Mongoose ODM
+       |                                        |
+       +-----> Socket.IO <----------+           v
+                                    |    +--------------+
+                                    +----|   MongoDB    |
+                                         |   (Atlas)    |
+                                         +--------------+
+                  ^
+                  | Geocoding / Directions / Places
+                  |
+            +-----+------+
+            | Google Maps|
+            |  Platform  |
+            +------------+
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 hopin/
 ├── backend/
-│   ├── config/           # Database connection
-│   ├── controllers/      # Route handler logic
-│   ├── middleware/       # JWT auth, role guards
-│   ├── models/           # Mongoose schemas
-│   ├── routes/           # Express routes
-│   └── server.js         # Entry point (Express + Socket.IO)
+│   ├── config/           Database connection
+│   ├── controllers/      Route handler logic
+│   ├── middleware/       JWT authentication and role guards
+│   ├── models/           Mongoose schemas
+│   ├── routes/           Express routes
+│   └── server.js         Application entry point (Express + Socket.IO)
 ├── frontend/
 │   ├── src/
-│   │   ├── components/   # Navbar, ProtectedRoute, PlaceAutocomplete
-│   │   ├── context/      # AuthContext
-│   │   ├── pages/        # Home, Login, Register, CreateRide, FindRide, Profile
-│   │   ├── services/     # Axios API client
-│   │   └── App.jsx       # Routing
+│   │   ├── components/   Navbar, ProtectedRoute, PlaceAutocomplete
+│   │   ├── context/      Authentication context
+│   │   ├── pages/        Home, Login, Register, CreateRide, FindRide, Profile
+│   │   ├── services/     Axios API client
+│   │   └── App.jsx       Routing configuration
 │   └── index.html
 └── README.md
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
 - Node.js 18 or higher
-- MongoDB (local install or [Atlas account](https://www.mongodb.com/cloud/atlas))
-- Google Maps API key with **Places**, **Directions**, and **Geocoding** APIs enabled
+- MongoDB (local installation or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) account)
+- Google Maps API key with the Places, Directions, and Geocoding APIs enabled
 
 ### Installation
 
@@ -114,133 +107,125 @@ git clone https://github.com/<your-username>/hopin.git
 cd hopin
 ```
 
-**2. Set up the backend**
+**2. Configure and run the backend**
 
 ```bash
 cd backend
 cp .env.example .env
-# Edit .env with your MONGO_URI, JWT_SECRET, and GOOGLE_MAPS_API_KEY
+# Edit .env with MONGO_URI, JWT_SECRET, and GOOGLE_MAPS_API_KEY
 npm install
 npm run dev
 ```
 
-Backend runs at `http://localhost:3000`.
+The backend runs at `http://localhost:3000`.
 
-**3. Set up the frontend** (in a new terminal)
+**3. Configure and run the frontend** (in a new terminal)
 
 ```bash
 cd frontend
 cp .env.example .env
-# Edit .env with your VITE_GOOGLE_MAPS_API_KEY
+# Edit .env with VITE_GOOGLE_MAPS_API_KEY
 npm install
 npm run dev
 ```
 
-Frontend runs at `http://localhost:5173`.
+The frontend runs at `http://localhost:5173`.
 
-**4. Try it out**
+### Usage
 
-1. Register two accounts — one as a `driver`, one as a `rider`
-2. Log in as the driver and create a ride
-3. Log in as the rider, search for rides along the same route, and book a seat
-4. Switch back to the driver to accept the booking
+1. Register two accounts, one with the `driver` role and one with the `rider` role
+2. Sign in as the driver and create a ride
+3. Sign in as the rider, search for rides along the same route, and request a booking
+4. Return to the driver account to accept or reject the booking request
 
-## 🔌 API Reference
+## API Reference
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|:----:|-------------|
-| `POST` | `/api/users/register` | – | Create new user account |
-| `POST` | `/api/users/login` | – | Authenticate and receive JWT |
-| `GET`  | `/api/users/:id` | ✓ | Get user profile |
-| `PUT`  | `/api/users/:id` | ✓ | Update user profile |
-| `GET`  | `/api/rides` | – | List all active rides |
-| `POST` | `/api/rides` | ✓ | Create a new ride |
-| `POST` | `/api/rides/match` | ✓ | Find rides matching origin/destination |
-| `GET`  | `/api/rides/user/:userId` | ✓ | Get rides by a specific driver |
-| `GET`  | `/api/rides/:id` | – | Get ride details |
-| `DELETE` | `/api/rides/:rideId` | ✓ | Delete own ride |
-| `POST` | `/api/bookings` | ✓ | Request a booking |
-| `GET`  | `/api/bookings/mine` | ✓ | Current rider's bookings |
-| `GET`  | `/api/bookings/driver` | ✓ | Bookings on current driver's rides |
-| `PUT`  | `/api/bookings/:id/status` | ✓ | Driver: accept / reject / complete |
-| `PUT`  | `/api/bookings/:id/cancel` | ✓ | Rider: cancel a booking |
+| POST | `/api/users/register` | No | Create a new user account |
+| POST | `/api/users/login` | No | Authenticate and receive a JWT |
+| GET | `/api/users/:id` | Yes | Retrieve a user profile |
+| PUT | `/api/users/:id` | Yes | Update a user profile |
+| GET | `/api/rides` | No | List all active rides |
+| POST | `/api/rides` | Yes | Create a new ride |
+| POST | `/api/rides/match` | Yes | Find rides matching an origin and destination |
+| GET | `/api/rides/user/:userId` | Yes | Retrieve rides by a specific driver |
+| GET | `/api/rides/:id` | No | Retrieve ride details |
+| DELETE | `/api/rides/:rideId` | Yes | Delete a ride owned by the current user |
+| POST | `/api/bookings` | Yes | Request a booking |
+| GET | `/api/bookings/mine` | Yes | List the current user's bookings (as rider) |
+| GET | `/api/bookings/driver` | Yes | List bookings on the current user's rides (as driver) |
+| PUT | `/api/bookings/:id/status` | Yes | Driver action: accept, reject, or complete a booking |
+| PUT | `/api/bookings/:id/cancel` | Yes | Rider action: cancel a booking |
 
-## 🧮 How Ride Matching Works
+## Ride Matching Algorithm
 
-The matching algorithm finds rides whose route passes near both the rider's origin **and** destination:
+The matching service identifies rides whose routes pass near both the rider's origin and destination:
 
-1. **Geocode** the rider's `place_id`s into latitude/longitude
-2. For each active ride, call the **Directions API** to get its full route polyline
-3. **Decode** the polyline into coordinates using `@mapbox/polyline`
-4. Use the **Haversine formula** to check if any polyline point lies within `3 km` of both the rider's origin and destination
-5. Return matched rides
+1. Geocode the rider's origin and destination `place_id` values into latitude and longitude coordinates
+2. For each active ride, call the Google Directions API to retrieve the route polyline
+3. Decode the polyline into a sequence of coordinates using the `@mapbox/polyline` library
+4. Apply the Haversine formula to check whether any polyline point lies within `3 km` of both the rider's origin and destination
+5. Return the matched rides
 
 The proximity threshold (`PROXIMITY_KM`) is configurable in `backend/controllers/ride.controller.js`.
 
-## 📡 Real-Time Events (Socket.IO)
+## Real-Time Events
 
-The backend exposes Socket.IO on the same port as the REST API:
+The backend exposes a Socket.IO server on the same port as the REST API.
 
 | Event | Direction | Payload | Purpose |
 |-------|-----------|---------|---------|
-| `join-ride` | client → server | `rideId` | Join a ride-specific room |
-| `chat-message` | both directions | `{ rideId, from, text }` | In-ride chat |
-| `ride-status` | both directions | `{ rideId, status }` | Live ride status updates |
+| `join-ride` | Client to server | `rideId` | Join a ride-specific room |
+| `chat-message` | Bidirectional | `{ rideId, from, text }` | In-ride chat messaging |
+| `ride-status` | Bidirectional | `{ rideId, status }` | Live ride status updates |
 
-## ☁️ Deployment
+## Deployment
 
 | Component | Platform | Notes |
 |-----------|----------|-------|
-| Frontend  | Vercel / Netlify | Set `VITE_*` env vars in dashboard |
-| Backend   | Render / Railway | Set all backend env vars; expose port 3000 |
-| Database  | MongoDB Atlas | Whitelist your backend's egress IPs |
+| Frontend | Vercel or Netlify | Configure `VITE_*` environment variables in the dashboard |
+| Backend | Render or Railway | Configure all backend environment variables; expose port 3000 |
+| Database | MongoDB Atlas | Whitelist the backend's egress IP addresses |
 
-## 🛣️ Roadmap
+## Roadmap
 
-- [ ] Payment gateway integration (Razorpay / Stripe)
-- [ ] Driver/rider rating and review system
-- [ ] Admin dashboard with analytics
-- [ ] Mobile app (React Native)
-- [ ] ML-based recurring ride suggestions
+- [ ] Payment gateway integration (Razorpay, Stripe)
+- [ ] Driver and rider rating and review system
+- [ ] Administrative dashboard with analytics
+- [ ] Mobile application (React Native)
+- [ ] Machine learning-based recurring ride suggestions
 - [ ] Push notifications
-- [ ] Corporate / group ride plans
+- [ ] Corporate and group ride plans
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Here's how to get involved:
+Contributions are welcome. To contribute:
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch (`git checkout -b feature/your-feature-name`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature-name`)
+5. Open a pull request
 
-Please make sure your code follows the existing style and includes relevant updates to the README if you're changing behavior.
+Please ensure your code follows the existing style and includes any necessary documentation updates.
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 👥 Team
+## Team
 
-Developed as a major project at the **Department of Computer Science and Engineering, University College of Engineering, Osmania University**.
+Developed at the Department of Computer Science and Engineering, University College of Engineering, Osmania University.
 
-- **Devulapally Keshav Sai Rao** (100521733012)
-- **Kamlekar Sai Siddharth** (100521733024)
-- **Ramchandar Rao Swargam** (100521733064)
+- Devulapally Keshav Sai Rao (100521733012)
+- Kamlekar Sai Siddharth (100521733024)
+- Ramchandar Rao Swargam (100521733064)
 
-**Project Guide:** Prof. B. Sujatha, Dept. of CSE, UCEOU
+**Project Guide:** Prof. B. Sujatha, Department of CSE, UCEOU
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- Built with the MERN stack and Google Maps Platform
-- Inspired by ride-sharing platforms like BlaBlaCar, UberPool, and QuickRide
-- Special thanks to Prof. B. Sujatha and the CSE department at UCEOU
-
----
-
-<div align="center">
-
-Made with ❤️ for greener cities
-
-</div>
+- Built using the MERN stack and the Google Maps Platform
+- Informed by existing ride-sharing platforms including BlaBlaCar, UberPool, and QuickRide
+- Sincere thanks to Prof. B. Sujatha and the CSE department at UCEOU for their guidance and support
